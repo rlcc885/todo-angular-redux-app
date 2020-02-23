@@ -31,8 +31,10 @@ export function todoReducer ( state = estadoInicial,
         if(todoEdit.id === action.id){
           return {
             ...todoEdit,
-            texto: action.texto
+            texto: action.texto,
           }
+        } else {
+          return todoEdit;
         }
       })
     default:

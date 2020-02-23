@@ -12,12 +12,13 @@ import { ToggleTodoAction, EditarTodoAction } from '../todo.actions';
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
-  @ViewChild('txtInputFisico', { static: true }) txtInputFisico: ElementRef;
+  @ViewChild('txtInputFisico') txtInputFisico: ElementRef;
 
   chkField: FormControl;
   txtInput: FormControl;
 
   editando: boolean;
+  completado: boolean;
 
   constructor(private store: Store<AppState>) { }
 
@@ -25,22 +26,23 @@ export class TodoItemComponent implements OnInit {
     this.chkField = new FormControl( this.todo.completado );
     this.txtInput = new FormControl( this.todo.texto, Validators.required );
 
-    this.chkField.valueChanges.subscribe( () => {
-      const accion = new ToggleTodoAction( this.todo.id );
-      this.store.dispatch(accion);
-    })
+    this.chkField.valueChanges
+        .subscribe( () => {
+          const accion = new ToggleTodoAction( this.todo.id );
+          this.store.dispatch( accion );
+        });
   }
 
-  editar(){
+  editar() {
     this.editando = true;
     this.txtInputFisico.nativeElement.select();
-    const accion = new EditarTodoAction(this.todo.id, this.txtInput.value);
-    this.store.dispatch( accion );
   }
 
-  terminarEdicion(){
+  terminarEdicion() {
     this.editando = false;
     if( this.txtInput.invalid) return;
     if( this.txtInput.value === this.todo.texto) return;
+    const accion = new EditarTodoAction(this.todo.id, this.txtInput.value);
+    this.store.dispatch( accion );
   }
 }

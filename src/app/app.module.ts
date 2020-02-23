@@ -17,7 +17,6 @@ import { TodoItemComponent } from './todo/todo-item/todo-item.component';
 import { TodoFooterComponent } from './todo/todo-footer/todo-footer.component';
 import { TodoAddComponent } from './todo/todo-add/todo-add.component';
 import { environment } from 'src/environments/environment.prod';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { CommonModule } from '@angular/common';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    CommonModule,
     StoreModule.forRoot({ todos: todoReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
