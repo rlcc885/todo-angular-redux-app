@@ -18,6 +18,7 @@ export class TodoItemComponent implements OnInit {
   txtInput: FormControl;
 
   editando: boolean;
+  completado: boolean;
 
   constructor(private store: Store<AppState>) { }
 
